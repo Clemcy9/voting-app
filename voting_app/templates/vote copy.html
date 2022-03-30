@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Vendor CSS Files -->
+    <link href="{{ url_for('static',filename = 'assets/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="..\static/assets/vendor/bootstrap/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="..\static/assets/css/style1.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Election Result Panel</h1>
+        <div >
+            {% for form in forms %}
+            <h1>{{form}}</h1>
+            <div class="row">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-header row">
+                            <!-- this view is better in systems -->
+                            {% for x in elec2.query.filter_by(position =form).all()%}
+                            <div class="col-sm-6" style="margin-top: 0.2em;">
+                                <div class="card">
+                                    <img class="card-img-top" src="../static/assets/img/img.jpg" alt="Card image">
+                                    <div class="card-body">
+                                        <h4 class="card-title">{{x.contestant}}</h4>
+                                        <p class="card-text">
+                                        <p>Village:</p>
+                                        <p>position:{{x.position}}</p>
+                                        <p>Votes: <span class="badge badge-primary ">{{db.session.query(poll).filter(poll.who_to_vote.like(x.contestant)).count()}}</span></p>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div> 
+                    </div> 
+                    <!-- testing another style -->
+                    <!-- <div class="card col-12" style="margin: 0.5em 0;padding: 0; background-color:rgb(247,247,247);">
+                        <div class="card-header">
+                            <h1>{{form}}</h1>
+                        </div>
+                        <h4 style="margin: auto 0.5em;">Contestant(s)</h4>
+                        {% for x in elec2.query.filter_by(position =form).all()%}
+                        <div class="card-body" style="border: 2px rgb(209,209,209) solid;background-color: white; margin: 3px 0.5em; padding:1px 0.5em;">
+                            <h5> Name: {{x.contestant}}</h5>
+                            <h5>Village:</h5>
+                            <h5>Votes: <span class="badge badge-primary ">New</span></h5>
+                        </div>
+                        {% endfor %}
+                        <div class="card-footer">
+                            <div class="form-group">
+                                <label for="sel1">Choose {{form}}:</label>
+                                <select class="form-control " id="sel1">
+                                    <option></option>
+                                    {% for x in elec2.query.filter_by(position =form).all() %}
+                                    
+                                    <option>{{x.contestant}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        
+                    </div> -->
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <!-- vendorv JS Files -->
+    <!-- <script src="{{ url_for('static',filename= 'assets/vendor/jquery/jquery.min.js')}}"></script>
+    <script src="{{ url_for('static',filename = 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script> -->
+    <script src="..\static/assets/vendor/bootstrap/jquery/jquery.min.js"></script>
+    <script src="..\static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
